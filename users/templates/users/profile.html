@@ -1,0 +1,75 @@
+{% extends 'main/index.html' %}
+{% load static %}
+
+{% block css %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя</title>
+    <link rel="stylesheet" href="{% static 'users/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <header class="profile-header">
+            <h1>Мой профиль</h1>
+        </header>
+        <form action="{% url 'users:profile' %}" method="post" enctype="multipart/form-data">
+        <div class="profile-content">
+            <div class="profile-sidebar">
+                <div class="avatar">
+                    {% if user.image %}
+                        <img src="{{ user.image.url }}" alt="Аватар">
+                    {% else %}
+                        <img src="{% static 'users/img/default_image.png' %}" alt="Аватар">
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="image">Аватар</label>
+                        <input type="file" name="image" id="id_image">
+                    </div>
+                </div>
+                <ul>
+                   <li class="nav-item active"><a href="{% url 'goods:catalogs' %}">Каталог</a></li>
+                    <li><a href="#orders">Мои заказы</a></li>
+                    <li><a href="{% url 'users:logout' %}">Выйти</a></li>
+                </ul>
+            </div>
+            <div class="profile-main">
+                <section id="edit">
+
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="first_name">Имя</label>
+                            <input type="text" name="first_name" id="first_name" value="{{ user.first_name }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name">Фамилия</label>
+                            <input type="text" name="last_name" id="last_name" value="{{ user.last_name }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Электронная почта</label>
+                            <input type="email" name="email" id="email" value="{{ user.email }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Имя пользователя</label>
+                            <input type="text" name="username" id="username" value="{{ user.username }}">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    </form>
+                </section>
+
+                <section id="orders">
+                    <h2>Мои заказы</h2>
+                    <!-- Пример заказов, замените на реальные данные -->
+                    <ul>
+                        <li>Заказ #1 - Статус: Доставлен</li>
+                        <li>Заказ #2 - Статус: В пути</li>
+                        <li>Заказ #3 - Статус: Ожидает оплаты</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'users/css/login_style.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="login-container">
+    <h3>Авторизация</h3>
+    <form action="{% url 'users:login' %}" method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <p class="error">{{ form.non_field_errors }}</p>
+        {% endif %}
+
+        <div class="mb-3">
+            <label for="id_username" class="form-label">Имя пользователя</label>
+            <input type="text" class="form-control" name="username" placeholder="Введите имя">
+        </div>
+        <div class="mb-3">
+            <label for="id_password" class="form-label">Пароль</label>
+            <input type="password" class="form-control" name="password" id="id_password" placeholder="Введите пароль">
+        </div>
+        <button type="submit" class="btn btn-primary">Войти</button>
+        <div class="additional-links">
+            <a href="{% url 'users:register' %}" class="btn btn-secondary">Зарегистрироваться</a>
+            {% comment %}<a href="{% url 'users:password_reset' %}" class="btn btn-link">Забыли пароль?</a>{% endcomment %}
+            <a href="#" class="btn btn-google"><i class="fa fa-google"></i> Войти с Google</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}
