@@ -1,0 +1,20 @@
+{% extends 'main/index.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Редактирование продукта</title>
+{% endblock title %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'crud_app/css/style_update.css' %}">
+{% endblock css %}
+{% block content %}
+    <div class="container">
+        <h2>Редактирование продукта</h2>
+        <form action="{% url 'crud_app:update_product' product.slug %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="update-btn">Обновить продукт</button>
+            <a href="{% url 'crud_app:detail_product' product.slug %}" class="cancel-btn">Отмена</a>
+        </form>
+    </div>
+{% endblock content %}

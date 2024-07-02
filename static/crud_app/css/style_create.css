@@ -1,0 +1,43 @@
+.news-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.news-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.news-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.news-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.news-form input[type="text"],
+.news-form textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box; /* Учитывать padding в общей ширине */
+}
+
+.news-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.news-form button:hover {
+    background-color: #0056b3;
+}

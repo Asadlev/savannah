@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина покупок</title>
+    <link rel="stylesheet" href="{% static 'cart/css/cart.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Корзина покупок</h1>
+        <div class="cart">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Товар</th>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                        <th>Итого</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart.items %}
+                    <tr>
+                        <td class="product-info">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                            <span>{{ item.product.name }}</span>
+                        </td>
+                        <td>{{ item.product.price }}</td>
+                        <td>
+                            <form action="{% url 'cart:cart_change' item.product.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                                <button type="submit" name="action" value="update">Обновить</button>
+                            </form>
+                        </td>
+                        <td>{{ item.total_price }}</td>
+                        <td>
+                            <form action="{% url 'cart:cart_delete' item.product.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="remove-btn">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="cart-summary">
+                <p>Общая сумма: {{ cart.total_price }}</p>
+                <a href="{% url 'checkout' %}" class="btn checkout-btn">Оформить заказ</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

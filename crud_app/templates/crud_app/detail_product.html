@@ -1,0 +1,33 @@
+{% extends 'main/index.html' %}
+{% load static %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'crud_app/css/style_detail.css' %}">
+{% endblock css %}
+
+
+{% block content %}
+<br>
+<br>
+    <div class="container">
+        <h2>{{ product.name }}</h2>
+            <p>Категория: {{ product.category }}</p>
+            <p class="date">Дата публикации: {{ product.created_at }}</p>
+            <p class="description">{{ product.description }}</p>
+            <div class="content">{{ product.price }}</div>
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        <a class="nav-link icon-cross" href="{% url 'cart:cart_add' product.id %}">
+            <img src="{% static 'goods/images/cross.svg' %}" class="img-fluid">
+        </a>
+    </div>
+
+<br>
+
+{% endblock content %}
+
+
+
+
+
+
